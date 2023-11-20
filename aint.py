@@ -37,7 +37,6 @@ while True :
     else : break
 
 scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
-print(scramble_aggresiveness)
 while scramble_aggresiveness.isdigit() == False and scramble_aggresiveness != '' :
     scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
 
