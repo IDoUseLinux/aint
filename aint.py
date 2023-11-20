@@ -2,7 +2,7 @@ from random import SystemRandom ## Lets make this truely random!
 
 ## (C) IDoUseLinux, MIT License, 2023
 
-def spoof_text(ai_text, scramble_aggresiveness = 30) :
+def spoof_text(ai_text, scramble_aggresiveness) :
     spoofed_text = ''
     for letter in ai_text :
         ## We take the original string and start scrambling it with look-alikes
@@ -28,4 +28,21 @@ def spoof_text(ai_text, scramble_aggresiveness = 30) :
         spoofed_text += letter
     return spoofed_text 
 
-print(spoof_text(input("Enter the AI generated text:\n"), scramble_aggresiveness=5))
+ai_text = ''
+while True :
+    ## We ask them to input the ai-generated text 1 paragraph at a time because any enters would mess with the input option. 
+    ai_paragraph = input("Please enter the AI-generated text 1 paragraph at a time. Leave blank if finished copying.\n") 
+    if ai_paragraph != '' : 
+        ai_text += ai_paragraph
+    else : break
+
+scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
+print(scramble_aggresiveness)
+while scramble_aggresiveness.isdigit() == False and scramble_aggresiveness != '' :
+    scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
+
+if scramble_aggresiveness == '' :
+    scramble_aggresiveness = 30 
+else : scramble_aggresiveness = int(scramble_aggresiveness)
+
+print(spoof_text(ai_text=ai_text, scramble_aggresiveness=scramble_aggresiveness))
