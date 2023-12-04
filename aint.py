@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import messagebox 
 from random import SystemRandom ## Lets make this truely random!
 
 ## (C) IDoUseLinux, MIT License, 2023
@@ -28,20 +30,57 @@ def spoof_text(ai_text, scramble_aggresiveness) :
         spoofed_text += letter
     return spoofed_text 
 
-ai_text = ''
-while True :
-    ## We ask them to input the ai-generated text 1 paragraph at a time because any enters would mess with the input option. 
-    ai_paragraph = input("Please enter the AI-generated text 1 paragraph at a time. Leave blank if finished copying.\n") 
-    if ai_paragraph != '' : 
-        ai_text += ai_paragraph
-    else : break
+class GUI :
+    APP_BG_COLOR = "#192e45"
+    BAR_COLOR = "#346191"
+    ENTRY_COLOR = "#15283c"
+    TEXT_COLOR="#ffffff"
+    all_screen_obj = []
 
-scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
-while scramble_aggresiveness.isdigit() == False and scramble_aggresiveness != '' :
-    scramble_aggresiveness = input("Please input the amount of scramble aggressiveness, leave blank for default\n")
+    def __init__(self, app) :
+        self.app = app
+        self.app.geometry("600x500")
+        self.app.title("Ain't (Ai Ain't)")
+        self.app.configure(bg=self.APP_BG_COLOR)
+        self.spawn_screen()
+        self.app.mainloop()
 
-if scramble_aggresiveness == '' :
-    scramble_aggresiveness = 30 
-else : scramble_aggresiveness = int(scramble_aggresiveness)
+    def clear_screen(self) :
+        while self.all_screen_obj: 
+            self.all_screen_obj[0].destroy()
+            del self.all_screen_obj[0]
 
-print(spoof_text(ai_text=ai_text, scramble_aggresiveness=scramble_aggresiveness))
+    def spawn_screen(self) :
+        frame = tk.Frame(self.app, bg=self.BAR_COLOR, width=600, height=0, padx=0, pady=0)
+        frame.pack(padx=0, pady=0, fill="both")
+
+        program_name = tk.Label(frame, text="Ain't (Ai Ain't, great name, I know...)", font=("Segoe UI", 20), fg=self.TEXT_COLOR, bg=self.BAR_COLOR)
+        program_name.pack(side=tk.TOP, padx=0, pady=(20,20))
+
+        instruction = tk.Label(self.app, text="Enter the AI-tagged text: ", font=("Segoe UI", 20),fg=self.TEXT_COLOR, bg=self.APP_BG_COLOR)
+        instruction.pack(side=tk.TOP, pady=10)
+
+        self.text_entry = tk.Text(self.app, bg=self.ENTRY_COLOR, fg=self.TEXT_COLOR, width=200, height=8, font=("Segoe UI", 15), insertbackground="#ffffff", border=5 ) ## For some dumb reason, the height is measured by how many lines it is, not actually how many pixels. 
+        self.text_entry.pack(anchor=tk.CENTER, padx=30, pady=30)
+
+        sumbit_button = tk.Button(self.app, bg="red", fg=self.TEXT_COLOR, text="Spoof", command=self.__spoof_text__)
+        sumbit_button.pack(side=tk.TOP, pady=10)
+
+        self.all_screen_obj.append(program_name)
+        self.all_screen_obj.append(frame)
+        self.all_screen_obj.append(self.text_entry)
+ 
+    ## We are going to add the about later.
+    def spawn_about(self) :
+        pass
+
+    def __spoof_text__(self) :
+        text = self.text_entry.get("1.0", tk.END)
+        self.text_entry.delete("1.0", tk.END)
+        self.text_entry.insert("1.0", spoof_text(text, scramble_aggresiveness=10))
+
+if __name__ == "__main__" : 
+    ## Tkinter genuinely sucks
+    ## CustomTKinter is much better
+    app = tk.Tk()
+    GUI(app)
