@@ -10,7 +10,7 @@ def spoof_text(ai_text, scramble_aggresiveness) :
         ## We take the original string and start scrambling it with look-alikes
         if letter == "a" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "а"
         elif letter == "c" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "с"
-        elif letter == "c" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "ԁ"
+        elif letter == "d" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "ԁ"
         elif letter == "h" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "һ"
         elif letter == "i" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "і"
         elif letter == "j" and SystemRandom().randrange(0, scramble_aggresiveness) == 0 : letter = "ј"
